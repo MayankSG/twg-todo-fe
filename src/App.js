@@ -9,13 +9,18 @@ const LoginPage = lazy(() => import("./pages/authentication/Login"));
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <RootLayout />,
-    children: [{ index: true, element: <DashboardPage /> }],
+    element: (
+      <Suspense fallback={<p>Loading....</p>}>
+        <RootLayout />
+      </Suspense>
+    ),
+    errorElement: <p>Error</p>,
+    children: [{ path: "/", index: true, element: <DashboardPage /> }],
   },
   {
     path: "login",
     element: (
-      <Suspense>
+      <Suspense fallback={<p>Loading....</p>}>
         <LoginPage />
       </Suspense>
     ),
@@ -23,7 +28,7 @@ const router = createBrowserRouter([
   {
     path: "signup",
     element: (
-      <Suspense>
+      <Suspense fallback={<p>Loading....</p>}>
         <SignUpPage />
       </Suspense>
     ),

@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const uiSlice = createSlice({
   name: "ui",
   initialState: {
-    notification: { status: "success" },
+    notification: null,
   },
   reducers: {
     showNotification(state, action) {

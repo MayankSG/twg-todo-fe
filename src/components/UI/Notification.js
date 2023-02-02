@@ -9,7 +9,7 @@ const Notification = (props) => {
       console.log("end");
       setTimerStatus(false);
     }, 3000);
-  });
+  }, []);
 
   const renderSwitch = (param) => {
     switch (param) {

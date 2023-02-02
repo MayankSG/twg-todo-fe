@@ -5,6 +5,7 @@ import store from "./store";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "./index.css";
+import "./assets/css/material-dashboard.css?v=3.0.4";
 
 const container = document.getElementById("root");
 const root = createRoot(container);
