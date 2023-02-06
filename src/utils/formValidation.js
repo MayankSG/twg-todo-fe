@@ -42,3 +42,13 @@ export function loginValidation(values) {
 
   return errors;
 }
+
+export function taskValidation(values) {
+  const errors = {};
+
+  if (!values.title) {
+    errors.title = "Required";
+  }
+
+  return errors;
+}

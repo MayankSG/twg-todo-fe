@@ -1,7 +1,6 @@
 import { lazy } from "react";
 import { NavLink } from "react-router-dom";
-
-const LoginForm = lazy(() => import("./LoginForm"));
+import LoginForm from "./LoginForm";
 
 function Login() {
   return (

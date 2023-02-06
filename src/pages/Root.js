@@ -8,7 +8,7 @@ function RootLayout() {
   const token = useLoaderData();
   const submit = useSubmit();
   const notification = useSelector((state) => state.ui.notification);
-
+  console.log(notification);
   useEffect(() => {
     if (!token) return;
 
@@ -20,9 +20,7 @@ function RootLayout() {
   return (
     <>
       <body className="g-sidenav-show bg-gray-200 g-sidenav-pinned">
-        <Suspense fallback={<p>Loading....</p>}>
-          <SideNavigation />
-        </Suspense>
+        <SideNavigation />
         <main className="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
           {notification && (
             <Notification
@@ -32,9 +30,7 @@ function RootLayout() {
             />
           )}
 
-          <Suspense fallback={<p>Loading....</p>}>
-            <Outlet />
-          </Suspense>
+          <Outlet />
         </main>
       </body>
     </>

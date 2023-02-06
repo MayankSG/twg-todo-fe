@@ -5,7 +5,8 @@ import RootLayout from "./pages/Root";
 import DashboardPage from "./pages/Dashboard";
 import SignUpPage from "./pages/authentication/SignUp";
 import LoginPage from "./pages/authentication/Login";
-
+import TaskCreatePage from "./pages/task/Create";
+import TaskEditPage from "./pages/task/Edit";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -13,14 +14,25 @@ const router = createBrowserRouter([
     errorElement: <p>Error</p>,
     children: [
       {
+        // path: "/dashboard",
         index: true,
         element: <DashboardPage />,
+        loader: checkAuthLoader,
+      },
+      {
+        path: "/task-create",
+        element: <TaskCreatePage />,
+        loader: checkAuthLoader,
+      },
+      {
+        path: "task-edit/:id",
+        element: <TaskEditPage />,
         loader: checkAuthLoader,
       },
     ],
   },
   {
-    path: "login",
+    path: "/login",
     element: <LoginPage />,
   },
   {

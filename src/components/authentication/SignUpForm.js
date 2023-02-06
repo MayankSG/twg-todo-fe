@@ -3,7 +3,7 @@ import { signupValidation } from "../../utils/formValidation";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { uiActions } from "../../store/ui-slice";
-import { redirect, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function SignUpForm() {
   const dispatch = useDispatch();
@@ -15,6 +15,8 @@ function SignUpForm() {
       .then(function (response) {
         console.log(response);
         localStorage.setItem("token", response.data.token);
+        localStorage.setItem("email", response.data.data.user.email);
+
         dispatch(
           uiActions.showNotification({
             status: "success",

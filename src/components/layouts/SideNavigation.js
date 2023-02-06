@@ -2,6 +2,8 @@ import { Form, NavLink } from "react-router-dom";
 
 function SideNavigation() {
   // const navigation = useNavigation();
+  const email = localStorage.getItem("email");
+  console.log(email);
 
   return (
     <>
@@ -17,7 +19,7 @@ function SideNavigation() {
           ></i>
 
           <NavLink className="navbar-brand m-0" to="/">
-            <span className="ms-1 font-weight-bold text-white">Todo List</span>
+            <span className="ms-1 font-weight-bold text-white">{email}</span>
           </NavLink>
         </div>
         <hr className="horizontal light mt-0 mb-2" />
@@ -39,7 +41,7 @@ function SideNavigation() {
                 <div className="text-white text-center me-2 d-flex align-items-center justify-content-center">
                   <i className="material-icons opacity-10">dashboard</i>
                 </div>
-                <span className="nav-link-text ms-1">Dashboard</span>
+                <span className="nav-link-text ms-1">Todo List</span>
               </NavLink>
               {/* </a> */}
             </li>
@@ -50,7 +52,7 @@ function SideNavigation() {
                     ? "nav-link text-white active bg-gradient-primary"
                     : "nav-link text-white"
                 }
-                to="/users"
+                to="/task-create"
               >
                 <div className="text-white text-center me-2 d-flex align-items-center justify-content-center">
                   <i className="material-icons opacity-10">table_view</i>

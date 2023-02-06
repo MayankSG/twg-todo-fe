@@ -9,10 +9,9 @@ export function tokenLoader() {
   return getAuthToken();
 }
 
-export function checkAuthLoader() {
+export function checkAuthLoader({ request, params }) {
   const token = getAuthToken();
-  console.log("token: ", token);
-  if (!token) {
-    return redirect("/login");
-  }
+  const url = new URL(request.url);
+  if (!token) return redirect("/login");
+  else return "";
 }
