@@ -1,37 +1,35 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { lazy, Suspense } from "react";
-
-const RootLayout = lazy(() => import("./pages/Root"));
-const DashboardPage = lazy(() => import("./pages/Dashboard"));
-const SignUpPage = lazy(() => import("./pages/authentication/SignUp"));
-const LoginPage = lazy(() => import("./pages/authentication/Login"));
+import { checkAuthLoader } from "./utils/auth";
+import { logout as logoutAction } from "./pages/authentication/logout";
+import RootLayout from "./pages/Root";
+import DashboardPage from "./pages/Dashboard";
+import SignUpPage from "./pages/authentication/SignUp";
+import LoginPage from "./pages/authentication/Login";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: (
-      <Suspense fallback={<p>Loading....</p>}>
-        <RootLayout />
-      </Suspense>
-    ),
+    element: <RootLayout />,
     errorElement: <p>Error</p>,
-    children: [{ path: "/", index: true, element: <DashboardPage /> }],
+    children: [
+      {
+        index: true,
+        element: <DashboardPage />,
+        loader: checkAuthLoader,
+      },
+    ],
   },
   {
     path: "login",
-    element: (
-      <Suspense fallback={<p>Loading....</p>}>
-        <LoginPage />
-      </Suspense>
-    ),
+    element: <LoginPage />,
   },
   {
     path: "signup",
-    element: (
-      <Suspense fallback={<p>Loading....</p>}>
-        <SignUpPage />
-      </Suspense>
-    ),
+    element: <SignUpPage />,
+  },
+  {
+    path: "logout",
+    action: logoutAction,
   },
 ]);
 function App() {

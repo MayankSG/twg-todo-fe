@@ -3,11 +3,11 @@ import { signupValidation } from "../../utils/formValidation";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { uiActions } from "../../store/ui-slice";
-import { useNavigate } from "react-router-dom";
+import { redirect, useNavigate } from "react-router-dom";
 
 function SignUpForm() {
   const dispatch = useDispatch();
-  const navigation = useNavigate();
+  const navigate = useNavigate();
   const submitHandler = async (data) => {
     const url = "http://127.0.0.1:8000/api/v1/users/signup";
     axios
@@ -22,7 +22,8 @@ function SignUpForm() {
             message: "User signed up successfully",
           })
         );
-        navigation("/");
+        console.log("redirect");
+        navigate("/");
       })
       .catch(function (error) {
         console.log(error);

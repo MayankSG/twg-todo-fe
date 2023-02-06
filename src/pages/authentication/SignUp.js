@@ -1,13 +1,7 @@
-import { lazy, Suspense } from "react";
-
-const SignUp = lazy(() => import("../../components/authentication/SignUp"));
+import SignUp from "../../components/authentication/SignUp";
 
 function SignUpPage() {
-  return (
-    <Suspense>
-      <SignUp />
-    </Suspense>
-  );
+  return <SignUp />;
 }
 
 export default SignUpPage;
