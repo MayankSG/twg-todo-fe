@@ -5,10 +5,10 @@ import SideNavigation from "../components/layouts/SideNavigation";
 import Notification from "../components/UI/Notification";
 
 function RootLayout() {
-  const token = useLoaderData();
+  const token = localStorage.getItem("token");
   const submit = useSubmit();
   const notification = useSelector((state) => state.ui.notification);
-  console.log(notification);
+
   useEffect(() => {
     if (!token) return;
 

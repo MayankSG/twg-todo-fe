@@ -15,6 +15,7 @@ function LoginForm() {
       .then(function (response) {
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("email", response.data.data.user.email);
+        localStorage.setItem("name", response.data.data.user.name);
 
         navigate("/");
       })

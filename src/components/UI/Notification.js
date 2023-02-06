@@ -8,13 +8,12 @@ const Notification = (props) => {
   const dispatch = useDispatch();
 
   const [timerStatus, setTimerStatus] = useState(true);
-  useEffect(() => {
+  useEffect(() => {}, []);
+
+  const renderSwitch = (param) => {
     setTimeout(() => {
       dispatch(uiActions.showNotification({}));
     }, 3000);
-  }, []);
-
-  const renderSwitch = (param) => {
     switch (param) {
       case "success":
         return (

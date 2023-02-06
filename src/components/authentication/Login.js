@@ -22,6 +22,17 @@ function Login() {
                   <div className="card-body">
                     <LoginForm />
                   </div>
+                  <div className="card-footer text-center pt-0 px-lg-2 px-1">
+                    <p className="mb-2 text-sm mx-auto">
+                      Create account?
+                      <NavLink
+                        className="text-primary text-gradient font-weight-bold"
+                        to="/signup"
+                      >
+                        Sign Up
+                      </NavLink>
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>

@@ -1,9 +1,14 @@
+import { useEffect, useState } from "react";
 import { Form, NavLink } from "react-router-dom";
 
 function SideNavigation() {
   // const navigation = useNavigation();
-  const email = localStorage.getItem("email");
-  console.log(email);
+  const [name, setName] = useState("");
+  useEffect(() => {
+    const email = localStorage.getItem("email");
+    setName(localStorage.getItem("name"));
+    console.log(email);
+  }, []);
 
   return (
     <>
@@ -19,7 +24,9 @@ function SideNavigation() {
           ></i>
 
           <NavLink className="navbar-brand m-0" to="/">
-            <span className="ms-1 font-weight-bold text-white">{email}</span>
+            <span className="ms-1 font-weight-bold text-white">{`${
+              "Welcome ," + name
+            }`}</span>
           </NavLink>
         </div>
         <hr className="horizontal light mt-0 mb-2" />
@@ -39,7 +46,7 @@ function SideNavigation() {
                 end
               >
                 <div className="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                  <i className="material-icons opacity-10">dashboard</i>
+                  <i className="material-icons opacity-10">table_view</i>
                 </div>
                 <span className="nav-link-text ms-1">Todo List</span>
               </NavLink>
@@ -52,12 +59,12 @@ function SideNavigation() {
                     ? "nav-link text-white active bg-gradient-primary"
                     : "nav-link text-white"
                 }
-                to="/task-create"
+                to="/task"
               >
                 <div className="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                  <i className="material-icons opacity-10">table_view</i>
+                  <i className="material-icons opacity-10">add_to_photos</i>
                 </div>
-                <span className="nav-link-text ms-1">Add New</span>
+                <span className="nav-link-text ms-1">Add Task</span>
               </NavLink>
             </li>
           </ul>

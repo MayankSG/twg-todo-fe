@@ -58,11 +58,16 @@ function List() {
   return (
     <div class="container-fluid py-4">
       <div class="row">
-        <div class="col-12">
-          <div class="card my-4">
+        <div class="col-10 mx-auto">
+          <div class="card my-4  z-index-1">
             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-              <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-                <h6 class="text-white text-capitalize ps-3">All Tasks</h6>
+              <div class="bg-gradient-primary shadow-primary border-radius-lg p-3 d-flex justify-content-between align-items-center">
+                <h6 class="text-white text-capitalize mb-0">All Tasks</h6>
+                <button className="btn btn-primary mb-0">
+                  {" "}
+                  <i className="material-icons opacity-10">add_to_photos</i> Add
+                  Task
+                </button>
               </div>
             </div>
             <div class="card-body px-0 pb-2">
@@ -79,7 +84,7 @@ function List() {
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                         Status
                       </th>
-                      <th class="text-secondary opacity-7"></th>
+                      <th colSpan={2} class="text-secondary opacity-7"></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -102,17 +107,17 @@ function List() {
                           <td class="align-middle text-center">
                             {task.status === "open" ? (
                               <span class="badge badge-sm bg-gradient-info">
-                                open
+                                todo
                               </span>
                             ) : (
                               <span class="badge badge-sm bg-gradient-warning">
-                                closed
+                                completed
                               </span>
                             )}
                           </td>
                           <td class="align-middle">
                             <NavLink
-                              to={`${"/task-edit/" + task._id}`}
+                              to={`${"/task/" + task._id}`}
                               class="text-secondary font-weight-bold text-xs"
                             >
                               <i className="material-icons opacity-10">mode</i>
