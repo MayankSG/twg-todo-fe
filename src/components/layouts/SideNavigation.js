@@ -2,12 +2,9 @@ import { useEffect, useState } from "react";
 import { Form, NavLink } from "react-router-dom";
 
 function SideNavigation() {
-  // const navigation = useNavigation();
   const [name, setName] = useState("");
   useEffect(() => {
-    const email = localStorage.getItem("email");
     setName(localStorage.getItem("name"));
-    console.log(email);
   }, []);
 
   return (

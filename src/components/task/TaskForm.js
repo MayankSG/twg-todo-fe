@@ -1,20 +1,23 @@
 import { Formik } from "formik";
 import { taskValidation } from "../../utils/formValidation";
-import axios from "axios";
 import { useDispatch } from "react-redux";
 import { uiActions } from "../../store/ui-slice";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import {
+  singleTask,
+  updateTask,
+  createTask,
+} from "../../services/taskServices/task";
 
 function TaskForm() {
-  const BASE_URL = process.env.REACT_APP_SERVER_URL;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const param = useParams();
   const [isFormType, setIsFormType] = useState("create");
   const [openForm, setOpenForm] = useState(false);
   const [editData, setEditData] = useState({});
-  const token = localStorage.getItem("token");
+  const [status, setStatus] = useState("open");
 
   useEffect(() => {
     if (param.id) {
@@ -23,23 +26,16 @@ function TaskForm() {
     } else {
       setOpenForm(true);
     }
-  }, []);
+  }, [param, getTaskHandler]);
 
   const getTaskHandler = () => {
-    const url = `${BASE_URL + "api/v1/task/" + param.id}`;
-    const token = localStorage.getItem("token");
-
-    axios
-      .get(url, {
-        headers: { Authorization: "Bearer " + token },
-      })
+    singleTask(param.id)
       .then(function (response) {
-        console.log(response.data.data.data);
         setEditData(response.data.data.data);
+        setStatus(response.data.data.data.status);
         setOpenForm(true);
       })
       .catch(function (error) {
-        console.log(error.message);
         dispatch(
           uiActions.showNotification({
             status: "warning",
@@ -51,13 +47,8 @@ function TaskForm() {
   };
 
   const submitHandler = async (data) => {
-    const url = `${BASE_URL + "api/v1/task/"}`;
-    axios
-      .post(url, data, {
-        headers: { Authorization: "Bearer " + token },
-      })
+    createTask(data)
       .then(function (response) {
-        console.log(response);
         dispatch(
           uiActions.showNotification({
             status: "success",
@@ -79,12 +70,8 @@ function TaskForm() {
   };
 
   const updateHandler = async (data) => {
-    const url = `${BASE_URL + "api/v1/task/" + param.id}`;
-    data.status = data.status[0];
-    axios
-      .put(url, data, {
-        headers: { Authorization: "Bearer " + token },
-      })
+    data.status = status;
+    updateTask(data, param.id)
       .then(function (response) {
         dispatch(
           uiActions.showNotification({
@@ -166,14 +153,16 @@ function TaskForm() {
                     className="form-check-input ms-auto"
                     type="checkbox"
                     name="status"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.status === "open" ? "closed" : "open"}
-                    checked={values.status === "open" ? false : true}
+                    onChange={() =>
+                      setStatus(status === "open" ? "closed" : "open")
+                    }
+                    // onBlur={handleBlur}
+                    value={status}
+                    checked={status === "open" ? false : true}
                   />
                   <label
                     className="form-check-label text-body ms-3 text-truncate w-80 mb-0"
-                    for="flexSwitchCheckDefault"
+                    htmlFor="flexSwitchCheckDefault"
                   >
                     Completed
                   </label>

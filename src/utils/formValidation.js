@@ -6,8 +6,8 @@ export function signupValidation(values) {
 
   if (!values.password) {
     errors.password = "Required";
-  } else if (values.password.length > 20) {
-    errors.password = "Must be 20 characters or less";
+  } else if (values.password.length < 8) {
+    errors.password = "Must be 8 characters or more";
   }
 
   if (!values.email) {
@@ -19,7 +19,7 @@ export function signupValidation(values) {
   if (!values.passwordConfirm) {
     errors.passwordConfirm = "Required";
   } else if (values.password !== values.passwordConfirm) {
-    errors.password = "Password and passwordConfirm must be same";
+    errors.passwordConfirm = "Password and passwordConfirm must be same";
   }
 
   return errors;

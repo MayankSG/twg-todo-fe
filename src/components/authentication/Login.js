@@ -1,10 +1,9 @@
-import { lazy } from "react";
 import { NavLink } from "react-router-dom";
 import LoginForm from "./LoginForm";
 
 function Login() {
   return (
-    <body className="bg-gray-200">
+    <div className="bg-gray-200">
       <main className="main-content  mt-0">
         <div className="page-header align-items-start min-vh-100">
           <span className="mask bg-gradient-dark opacity-6"></span>
@@ -39,7 +38,7 @@ function Login() {
           </div>
         </div>
       </main>
-    </body>
+    </div>
   );
 }
 

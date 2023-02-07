@@ -14,7 +14,6 @@ const router = createBrowserRouter([
     errorElement: <p>Error</p>,
     children: [
       {
-        // path: "/dashboard",
         index: true,
         element: <DashboardPage />,
         loader: checkAuthLoader,

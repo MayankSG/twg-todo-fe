@@ -10,13 +10,13 @@ function TaskPage() {
     if (param.id) {
       setIsFormType("update");
     }
-  }, []);
+  }, [param]);
   return (
     <main className="main-content mt-0">
       <div className="container">
         <div className="row">
-          <div class="col-6 mx-auto">
-            <div class="card my-4">
+          <div className="col-6 mx-auto">
+            <div className="card my-4">
               <div className="card-header">
                 <h4 className="font-weight-bolder">
                   {isFormType === "create" ? "Create New Task" : "Update Task"}

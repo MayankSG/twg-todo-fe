@@ -1,10 +1,9 @@
 import { useEffect } from "react";
-import axios from "axios";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { uiActions } from "../../store/ui-slice";
 import { NavLink } from "react-router-dom";
-
+import { taskList, deleteTask } from "../../services/taskServices/task";
 function List() {
   const dispatch = useDispatch();
   const [tasks, setTasks] = useState([]);
@@ -12,16 +11,9 @@ function List() {
     submitHandler();
   }, []);
 
-  const submitHandler = async () => {
-    const url = "http://127.0.0.1:8000/api/v1/task";
-    const token = localStorage.getItem("token");
-
-    axios
-      .get(url, {
-        headers: { Authorization: "Bearer " + token },
-      })
-      .then(function (response) {
-        console.log(response);
+  const submitHandler = () => {
+    taskList()
+      .then((response) => {
         setTasks(response.data.data.data);
       })
       .catch(function (error) {
@@ -33,14 +25,8 @@ function List() {
     const confirmBox = window.confirm("Are you sure you want to delete");
 
     if (confirmBox) {
-      const url = "http://127.0.0.1:8000/api/v1/task/" + id;
-      const token = localStorage.getItem("token");
-
-      axios
-        .delete(url, {
-          headers: { Authorization: "Bearer " + token },
-        })
-        .then(function (response) {
+      deleteTask(id)
+        .then(() => {
           dispatch(
             uiActions.showNotification({
               status: "success",
@@ -50,19 +36,25 @@ function List() {
           );
           submitHandler();
         })
-        .catch(function (error) {
-          console.log(error);
+        .catch((err) => {
+          dispatch(
+            uiActions.showNotification({
+              status: "warning",
+              title: "Something went wrong",
+              message: err.message,
+            })
+          );
         });
     }
   };
   return (
-    <div class="container-fluid py-4">
-      <div class="row">
-        <div class="col-10 mx-auto">
-          <div class="card my-4  z-index-1">
-            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-              <div class="bg-gradient-primary shadow-primary border-radius-lg p-3 d-flex justify-content-between align-items-center">
-                <h6 class="text-white text-capitalize mb-0">All Tasks</h6>
+    <div className="container-fluid py-4">
+      <div className="row">
+        <div className="col-10 mx-auto">
+          <div className="card my-4  z-index-1">
+            <div className="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+              <div className="bg-gradient-primary shadow-primary border-radius-lg p-3 d-flex justify-content-between align-items-center">
+                <h6 className="text-white text-capitalize mb-0">All Tasks</h6>
                 <button className="btn btn-primary mb-0">
                   {" "}
                   <i className="material-icons opacity-10">add_to_photos</i> Add
@@ -70,64 +62,63 @@ function List() {
                 </button>
               </div>
             </div>
-            <div class="card-body px-0 pb-2">
-              <div class="table-responsive p-0">
-                <table class="table align-items-center mb-0">
+            <div className="card-body px-0 pb-2">
+              <div className="table-responsive p-0">
+                <table className="table align-items-center mb-0">
                   <thead>
                     <tr>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                      <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                         Title
                       </th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                      <th className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                         discription
                       </th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                      <th className="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                         Status
                       </th>
-                      <th colSpan={2} class="text-secondary opacity-7"></th>
+                      <th colSpan={2} className="text-secondary opacity-7"></th>
                     </tr>
                   </thead>
                   <tbody>
-                    {tasks.map((task) => {
+                    {tasks.map((task, index) => {
                       return (
-                        <tr>
+                        <tr key={index}>
                           <td>
-                            <div class="d-flex px-2 py-1">
-                              <div class="d-flex flex-column justify-content-center">
-                                <h6 class="mb-0 text-sm">{task.title}</h6>
+                            <div className="d-flex px-2 py-1">
+                              <div className="d-flex flex-column justify-content-center">
+                                <h6 className="mb-0 text-sm">{task.title}</h6>
                               </div>
                             </div>
                           </td>
                           <td>
-                            <p class="text-xs text-secondary mb-0">
+                            <p className="text-xs text-secondary mb-0">
                               {task.description}
                             </p>
                           </td>
 
-                          <td class="align-middle text-center">
+                          <td className="align-middle text-center">
                             {task.status === "open" ? (
-                              <span class="badge badge-sm bg-gradient-info">
+                              <span className="badge badge-sm bg-gradient-info">
                                 todo
                               </span>
                             ) : (
-                              <span class="badge badge-sm bg-gradient-warning">
+                              <span className="badge badge-sm bg-gradient-warning">
                                 completed
                               </span>
                             )}
                           </td>
-                          <td class="align-middle">
+                          <td className="align-middle">
                             <NavLink
                               to={`${"/task/" + task._id}`}
-                              class="text-secondary font-weight-bold text-xs"
+                              className="text-secondary font-weight-bold text-xs"
                             >
                               <i className="material-icons opacity-10">mode</i>
                             </NavLink>
                           </td>
-                          <td class="align-middle">
+                          <td className="align-middle">
                             <a
-                              href="javascript:;"
                               onClick={() => deleteHandler(task._id)}
-                              class="text-secondary font-weight-bold text-xs"
+                              className="text-secondary font-weight-bold text-xs"
                               data-toggle="tooltip"
                               data-original-title="Edit user"
                             >
