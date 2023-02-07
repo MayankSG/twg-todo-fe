@@ -48,7 +48,7 @@ function TaskForm() {
 
   const submitHandler = async (data) => {
     createTask(data)
-      .then(function (response) {
+      .then(function () {
         dispatch(
           uiActions.showNotification({
             status: "success",
@@ -58,7 +58,7 @@ function TaskForm() {
         );
         navigate("/");
       })
-      .catch(function (error) {
+      .catch(function () {
         dispatch(
           uiActions.showNotification({
             status: "warning",
@@ -72,7 +72,7 @@ function TaskForm() {
   const updateHandler = async (data) => {
     data.status = status;
     updateTask(data, param.id)
-      .then(function (response) {
+      .then(function () {
         dispatch(
           uiActions.showNotification({
             status: "success",
@@ -83,7 +83,7 @@ function TaskForm() {
         navigate("/");
         getTaskHandler();
       })
-      .catch(function (error) {
+      .catch(function () {
         dispatch(
           uiActions.showNotification({
             status: "warning",
@@ -121,13 +121,12 @@ function TaskForm() {
             handleBlur,
             handleSubmit,
             isSubmitting,
-            /* and other goodies */
           }) => (
             <form onSubmit={handleSubmit}>
-              <div className="input-group input-group-outline mb-3">
+              <div className="input-group input-group-outline ">
                 <input
                   type="text"
-                  className="form-control"
+                  className="form-control my-3"
                   name="title"
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -135,11 +134,14 @@ function TaskForm() {
                   placeholder="Title"
                 />
               </div>
-              {errors.title && touched.title && errors.title}
-              <div className="input-group input-group-outline mb-3">
+              <small className="text-danger mb-0">
+                {errors.title && touched.title && errors.title}
+              </small>
+
+              <div className="input-group input-group-outline ">
                 <input
                   type="text"
-                  className="form-control"
+                  className="form-control my-2"
                   name="description"
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -147,6 +149,11 @@ function TaskForm() {
                   placeholder="Description"
                 />
               </div>
+              <small className="text-danger mb-0">
+                {errors.description &&
+                  touched.description &&
+                  errors.description}
+              </small>
               {isFormType === "update" && (
                 <div className="form-check  ps-0 is-filled">
                   <input

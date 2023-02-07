@@ -4,6 +4,7 @@ const uiSlice = createSlice({
   name: "ui",
   initialState: {
     notification: null,
+    sideNave: false,
   },
   reducers: {
     showNotification(state, action) {
@@ -12,6 +13,9 @@ const uiSlice = createSlice({
         title: action.payload.title,
         message: action.payload.message,
       };
+    },
+    changeSideNav(state) {
+      state.sideNave = !state.sideNave;
     },
   },
 });

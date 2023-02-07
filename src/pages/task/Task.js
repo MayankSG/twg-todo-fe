@@ -15,7 +15,7 @@ function TaskPage() {
     <main className="main-content mt-0">
       <div className="container">
         <div className="row">
-          <div className="col-6 mx-auto">
+          <div className="col-12 col-md-6 mx-auto my-4">
             <div className="card my-4">
               <div className="card-header">
                 <h4 className="font-weight-bolder">

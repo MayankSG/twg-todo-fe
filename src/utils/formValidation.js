@@ -47,7 +47,11 @@ export function taskValidation(values) {
   const errors = {};
 
   if (!values.title) {
-    errors.title = "Required";
+    errors.title = "title is required";
+  }
+
+  if (!values.description) {
+    errors.description = "description is required";
   }
 
   return errors;
