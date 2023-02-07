@@ -26,7 +26,7 @@ function TaskForm() {
     } else {
       setOpenForm(true);
     }
-  }, [param, getTaskHandler]);
+  }, [param]);
 
   const getTaskHandler = () => {
     singleTask(param.id)

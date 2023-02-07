@@ -12,6 +12,9 @@ function LoginForm() {
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("email", response.data.data.user.email);
         localStorage.setItem("name", response.data.data.user.name);
+        const expiration = new Date();
+        expiration.setHours(expiration.getHours() + 1);
+        localStorage.setItem("expiration", expiration.toISOString());
         navigate("/");
       })
       .catch(function (error) {
